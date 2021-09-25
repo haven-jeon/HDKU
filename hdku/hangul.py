@@ -17,6 +17,8 @@
 
 from typing import List, Dict, FrozenSet
 
+__all__ = ['Hangul', ]
+
 
 class Hangul:
     MAX_KEYSTROKE_SIZE: int = 100
@@ -87,7 +89,7 @@ class Hangul:
         "ㅡ": "m",
         "ㅢ": "ml",
         "ㅣ": "l",
-        "": ""
+        "\x00": ""
     }
     # Keystroke to code
     key_to_jamo: Dict[str, str] = {
@@ -398,7 +400,7 @@ class Hangul:
         jamo_buf1: int = 0
         jamo_buf2: int = 0
         jamo_buf3: int = 0
-        jamos: List[str] = [chr(0)] * 3
+        jamos: List[str] = ['\x00'] * 3
 
         if self.is_jaeum(syllable):
             jamos[0] = syllable
