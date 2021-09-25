@@ -221,7 +221,7 @@ class Hangul:
 
     # ㄱ ㄲ ㄳ ㄴ ㄵ ㄶ ㄷ ㄹ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅁ ㅂ ㅄ ㅅ ㅆ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ
     jongsung_idx: Dict[str, int] = {
-        "": 0,
+        "\x00": 0,
         "ㄱ": 1,
         "ㄲ": 2,
         "ㄳ": 3,
@@ -292,37 +292,37 @@ class Hangul:
         pass
 
     def _in_jamokey(self, code: str) -> bool:
-        ## isInCodeKey
+        # isInCodeKey
         return code in Hangul.jamo_to_key
 
     def _in_keyjamo(self, key: str) -> bool:
-        ## isInKeyCode
+        # isInKeyCode
         return key in Hangul.key_to_jamo
 
     def _get_jamo_from_key(self, key: str) -> str:
-        ## getCodefromKey
+        # getCodefromKey
         return Hangul.key_to_jamo[key]
 
     def _in_multijamo(self, jamos: str) -> bool:
-        ## isInMultiJamo
+        # isInMultiJamo
         return jamos in Hangul.multi_jamo_to_one
 
     def _get_multijamo_to_one(self, jamos: str) -> str:
-        ## getMultiJamo
+        # getMultiJamo
         return Hangul.multi_jamo_to_one[jamos]
 
     def _get_key_from_jamo(self, jamo: str) -> str:
-        ## getKeyfromCode
+        # getKeyfromCode
         return Hangul.jamo_to_key[jamo]
 
     def _get_chosung_idx(self, ch: str) -> int:
-        return Hangul.chosung_idx[ch]
+        return Hangul.chosung_idx.get(ch, None)
 
     def _get_jwungsung_idx(self, ch: str) -> int:
-        return Hangul.jwungsung_idx[ch]
+        return Hangul.jwungsung_idx.get(ch, None)
 
     def _get_jongsung_idx(self, ch: str) -> int:
-        return Hangul.jongsung_idx[ch]
+        return Hangul.jongsung_idx.get(ch, None)
 
     def _is_hangul(self, ch: str) -> bool:
         return ((Hangul.HANGUL_SYLLABLE_START <= ord(ch) and ord(ch) <= Hangul.HANGUL_SYLLABLE_END) or self.is_jamo(ch))
@@ -347,7 +347,7 @@ class Hangul:
         return True
 
     def is_jaeum(self, input: str) -> bool:
-        ## isJaeumString
+        # isJaeumString
         if len(input) == 0:
             return False
         for ch in input:
@@ -356,7 +356,7 @@ class Hangul:
         return True
 
     def is_ascii(self, input: str) -> bool:
-        ## isAsciiString
+        # isAsciiString
         if len(input) == 0:
             return False
         for ch in input:
@@ -365,7 +365,7 @@ class Hangul:
         return True
 
     def is_moeum(self, input: str) -> bool:
-        ## isMoeumString
+        # isMoeumString
         if len(input) == 0:
             return False
         for ch in input:
