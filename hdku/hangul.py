@@ -455,9 +455,3 @@ class Hangul:
             if div:
                 keystrokes.append(Hangul.DIVIDER)
         return ''.join(keystrokes)
-
-
-if __name__ == '__main__':
-    h = Hangul()
-    ret = h.convert_hangul_to_keystrokes('전희원', True, True)
-    print(ret)
