@@ -542,7 +542,7 @@ class KoLevensteinDistance:
     def __init__(self) -> None:
         pass
 
-    def insertCost(self, ch: str) -> float:
+    def insert_cost(self, ch: str) -> float:
         c: int = ord(ch)
         cost_sum: float = 0
         if c >= KoLevensteinDistance.a_ascii and c <= KoLevensteinDistance.z_ascii:
@@ -560,10 +560,10 @@ class KoLevensteinDistance:
             cost_sum = KoLevensteinDistance.cost[62][
                 KoLevensteinDistance.COST_TABLE_SIZE - 1]
         else:
-            assert False
+            cost_sum = 1.0
         return cost_sum
 
-    def deleteCost(self, ch: str) -> float:
+    def delete_cost(self, ch: str) -> float:
         c: int = ord(ch)
         cost_sum: float = 0
         if c >= KoLevensteinDistance.a_ascii and c <= KoLevensteinDistance.z_ascii:
@@ -581,10 +581,10 @@ class KoLevensteinDistance:
             cost_sum = KoLevensteinDistance.cost[
                 KoLevensteinDistance.COST_TABLE_SIZE - 1][62]
         else:
-            assert False
+            cost_sum = 1.0
         return cost_sum
 
-    def transCost(self, sc: str, tc: str) -> float:
+    def trans_cost(self, sc: str, tc: str) -> float:
         s: int = ord(sc)
         t: int = ord(tc)
         if s == t:
@@ -606,7 +606,7 @@ class KoLevensteinDistance:
                 cost_sum = KoLevensteinDistance.cost[
                     (s - KoLevensteinDistance.a_ascii) * 2][62]
             else:
-                assert False
+                cost_sum = 1.0
         elif s >= KoLevensteinDistance.A_ascii and s <= KoLevensteinDistance.Z_ascii:
             if t >= KoLevensteinDistance.a_ascii and t <= KoLevensteinDistance.z_ascii:
                 cost_sum = KoLevensteinDistance.cost[
@@ -623,7 +623,7 @@ class KoLevensteinDistance:
                 cost_sum = KoLevensteinDistance.cost[
                     (s - KoLevensteinDistance.A_ascii) * 2 + 1][62]
             else:
-                assert False
+                cost_sum = 1.0
         elif s >= 48 and s <= 57:
             if t >= KoLevensteinDistance.a_ascii and t <= KoLevensteinDistance.z_ascii:
                 cost_sum = KoLevensteinDistance.cost[
@@ -636,7 +636,7 @@ class KoLevensteinDistance:
             elif t == 32:
                 cost_sum = KoLevensteinDistance.cost[s + 4][62]
             else:
-                assert False
+                cost_sum = 1.0
         elif s == 32:
             if t >= KoLevensteinDistance.a_ascii and t <= KoLevensteinDistance.z_ascii:
                 cost_sum = KoLevensteinDistance.cost[62][
@@ -649,25 +649,20 @@ class KoLevensteinDistance:
             elif t == 32:
                 cost_sum = KoLevensteinDistance.cost[62][62]
             else:
-                assert False
+                cost_sum = 1.0
         else:
-            assert False
+            cost_sum = 1.0
         return cost_sum
 
-    def getDistance(self, target: str, other: str) -> float:
+    def get_dubeolsik_distance(self, target: str, other: str) -> float:
         sa = target
         n: int = len(sa)
-        p: List[float] = [None] * (n + 1
-                                   )  # 'previous' cost array, horizontally
-        d: List[float] = [None] * (n + 1)  # cost array, horizontally
-        _d: List[float] = [None]  # placeholder to assist in swapping p and d
+        p: List[float] = [0] * (n + 1)  # 'previous' cost array, horizontally
+        d: List[float] = [0] * (n + 1)  # cost array, horizontally
+        _d: List[float] = [0]  # placeholder to assist in swapping p and d
 
         m: int = len(other)
-        if n == 0 or m == 0:
-            if n == m:
-                return 1
-            else:
-                return 0
+
         # indexes into strings s and t
         # i: int = 0  # iterates through s
         # j: int = 1  # iterates through t
@@ -684,12 +679,12 @@ class KoLevensteinDistance:
 
             for i in range(1, n + 1):
                 cost = 0 if sa[i -
-                               1] == t_j else self.transCost(sa[i - 1], t_j)
+                               1] == t_j else self.trans_cost(sa[i - 1], t_j)
                 # minimum of cell to the left+1, to the top+1, diagonally left
                 # and up +cost
                 d[i] = min(
-                    min(d[i - 1] + self.insertCost(t_j),
-                        p[i] + self.deleteCost(t_j)), p[i - 1] + cost)
+                    min(d[i - 1] + self.insert_cost(t_j),
+                        p[i] + self.delete_cost(t_j)), p[i - 1] + cost)
             # copy current distance counts to 'previous row' distance counts
             _d = p
             p = d

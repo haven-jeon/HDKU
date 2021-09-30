@@ -271,12 +271,3 @@ class KeystrokeAutomata(HangulAutomata):
             if is_uncompleted == 0 or is_uncompleted == 2:
                 self.hangul_buffer += ch
 
-
-if __name__ == '__main__':
-    am = JamoAutomata(False)
-    print(am.convert('ㅈㅓㄴㅎㅡㅣㅇㅜㅓㄴ'))
-    print(am.convert('"ㅇㅏㄹㅁ'))
-    print(am.convert("sksms wjdakf glaemfdj"))
-
-    kam = KeystrokeAutomata(False)
-    print(kam.convert("wjsgmldnjsdkfa"))
