@@ -270,4 +270,3 @@ class KeystrokeAutomata(HangulAutomata):
             is_uncompleted: int = self.finalization()
             if is_uncompleted == 0 or is_uncompleted == 2:
                 self.hangul_buffer += ch
-
