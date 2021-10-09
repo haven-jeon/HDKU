@@ -24,7 +24,7 @@ When calculated with HDKU, the probability of a typo between 'ㅔ <-> ㅐ' is hi
 
 `HDKU` provides the following features.
 
-- Typo distance and phonetic distances based on Dubeolsik keyboard
+- Hangul string distance with typo and phonetic distances based on Dubeolsik keyboard
 - Hangul Jamo sequences <-> Hangul sentence(using Hangul automata)
 
 ## Install
