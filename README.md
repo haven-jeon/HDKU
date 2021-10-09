@@ -58,3 +58,14 @@ kdd.get_distance('아버지가 방에 들어가신다.', '아버지가 집에 �
 kdd.get_distance('아버지가 방에 들어가신다.', '아버지가 밭에 들어가신다.')
 # 0.5
 ```
+
+## Citation
+
+```latex
+@misc{heewon2021,
+author = {Heewon Jeon},
+title = {HDKU: Hangul Dubeolsik(QWERTY) Keystroke Utils},
+publisher = {GitHub},
+journal = {GitHub repository},
+howpublished = {\url{https://github.com/haven-jeon/HDKU}}
+```
