@@ -6,7 +6,7 @@ The [Dubeolsik(QWERTY) keyboard](https://en.wikipedia.org/wiki/Keyboard_layout#D
 
 The distance is largely based on typo distance and Hangul phonetic distance as shown below. See [here](hdku/ko_levenstein_distance.py) for more details.
 
-<img src="hdku.png" alt="" style="width:500px;"/>
+<img src="hdku.png" alt="" style="width:700px;"/>
 
 For example, consider the following two sentence pairs:
 
