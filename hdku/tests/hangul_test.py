@@ -6,6 +6,8 @@ def test_Hangul():
     # convert_hangul_to_keystrokes
     ret = h.convert_hangul_to_keystrokes('전희원', True, True)
     assert ret == 'ｗｊｓ｜ｇｍｌ｜ｄｎｊｓ｜'
+    ret = h.convert_hangul_to_keystrokes('전희원key12 23', True, True)
+    assert ret == 'ｗｊｓ｜ｇｍｌ｜ｄｎｊｓ｜k｜e｜y｜1｜2｜ ｜2｜3｜'
     ret = h.convert_hangul_to_keystrokes('전희원', False, True)
     assert ret == 'wjs｜gml｜dnjs｜'
     ret = h.convert_hangul_to_keystrokes('전희원', False, False)
@@ -17,6 +19,9 @@ def test_Hangul():
     assert ret == 'ㅈㅓㄴㅎㅢㅇㅝㄴ'
     ret = h.convert_hangul_to_jamos("전희원", True)
     assert ret == 'ㅈㅓㄴ｜ㅎㅢ｜ㅇㅝㄴ｜'
+    assert h.convert_jamos_to_syllable('ㅈㅓㄴ') == '전'
+    assert h.convert_jamos_to_syllable('ㄱㅣㄹㅎ') == '긿'
+    assert h.convert_jamos_to_syllable('ㅎㅡㅣㄹㅎ') == '흻'
     # is_moeum
     assert h.is_moeum('ㅒ')
     assert h.is_moeum('ㅣ')

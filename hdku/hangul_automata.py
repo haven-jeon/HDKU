@@ -112,7 +112,7 @@ class HangulAutomata(metaclass=ABCMeta):
 
 
 class JamoAutomata(HangulAutomata):
-    def __init__(self, force: bool) -> None:
+    def __init__(self, force: bool=True) -> None:
         super().__init__(force)
 
     def feed(self, ch: str) -> None:
@@ -194,7 +194,7 @@ class JamoAutomata(HangulAutomata):
 
 
 class KeystrokeAutomata(HangulAutomata):
-    def __init__(self, force: bool) -> None:
+    def __init__(self, force: bool = True) -> None:
         super().__init__(force)
 
     def feed(self, ch: str) -> None:

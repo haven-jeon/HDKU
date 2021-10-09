@@ -11,3 +11,6 @@ def test_KoDubeolsikDistance():
     assert kdd.get_distance("아버지가 방에 들어가셨다.", "아버지 가방에 들어가셨다.") == 1.5
     assert kdd.get_distance("찡그린 상판때기가 너무 보기 싫어", "찡그린 상판떼기가 너무 보기 싫어") == 0.5
     assert kdd.get_distance("찡그린 상판때기가 너무 보기 싫어", "찡그린 상판때기게 너무 보기 싫어") == 1.0
+
+    # res = kdd.get_edx_samples('기시다와 아베 신조(安倍晋三).')
+    # assert len(res) == 3

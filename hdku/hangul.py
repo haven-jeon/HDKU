@@ -290,6 +290,10 @@ class Hangul:
 
     moeum: FrozenSet[str] = set(jwungsung_idx.keys())
 
+    hangul_fullwidth: FrozenSet = {'ｒ', 'ｊ', 'ｅ', 'ｗ', 'Ｗ', 'ａ', 'Ｒ', 'ｐ', 'ｕ', 'ｘ', 'ｇ', 'ｃ', 'ｖ', 'ｉ', 'ｎ', 'ｋ', 'ｙ', 'ｓ', 'ｌ', 'ｍ', 'ｑ', 'ｏ', 'Ｏ', 'Ｔ', 'Ｑ', 'ｆ', 'Ｅ', 'ｔ', 'ｚ', 'ｈ', 'ｄ', 'Ｐ', 'ｂ'}  # space
+
+    double_to_one: Dict[str, str] ={'ㅏㅣ': 'ㅐ', 'ㅑㅣ': 'ㅒ', 'ㅓㅣ': 'ㅔ', 'ㅕㅣ': 'ㅖ', 'ㅗㅏ': 'ㅘ', 'ㅗㅐ': 'ㅙ', 'ㅗㅣ': 'ㅚ', 'ㅜㅓ': 'ㅝ', 'ㅜㅔ': 'ㅞ', 'ㅜㅣ': 'ㅟ', 'ㅡㅣ': 'ㅢ', 'ㄱㅅ': 'ㄳ', 'ㄴㅈ': 'ㄵ', 'ㄴㅎ': 'ㄶ', 'ㄹㄱ': 'ㄺ', 'ㄹㅁ': 'ㄻ', 'ㄹㅂ': 'ㄼ', 'ㄹㅅ': 'ㄽ', 'ㄹㅌ': 'ㄾ', 'ㄹㅍ': 'ㄿ', 'ㄹㅎ': 'ㅀ', 'ㅂㅅ': 'ㅄ', 'ㄱㄱ': 'ㄲ', 'ㅅㅅ': 'ㅆ'}
+
     def __init__(self) -> None:
         pass
 
@@ -330,7 +334,22 @@ class Hangul:
         return ((Hangul.HANGUL_SYLLABLE_START <= ord(ch) and ord(ch) <= Hangul.HANGUL_SYLLABLE_END) or self.is_jamo(ch))
 
     def _convert_halfwidth_to_fullwidth(self, ch: str) -> str:
-        return chr((ord(ch) - 0x41) + 0xFF21)
+        out: List[str] = []
+        for k in ch:
+            out.append(chr((ord(k) - 0x41) + 0xFF21))
+        return ''.join(out)
+
+    def is_keystroke_fullwidth(self, ch: str) -> bool:
+        for c in ch:
+            if c not in Hangul.hangul_fullwidth:
+                return False
+        return True
+
+    def _convert_fullwidth_to_halfwidth(self, ch: str) -> str:
+        out: List[str] = []
+        for k in ch:
+            out.append(chr((ord(k) + 0x41) - 0xFF21))
+        return ''.join(out)
 
     def is_jamo(self, input: str) -> bool:
         if len(input) == 0:
@@ -384,8 +403,24 @@ class Hangul:
         Returns:
             str: [description]
         """
-        if len(jamos) != Hangul.JAMO_LEN_PER_SYLLABLE:
-            return ''
+        jamos_len: int = len(jamos)
+        if jamos_len > Hangul.JAMO_LEN_PER_SYLLABLE:
+            new_jamos: List[str] = []
+            is_pushed: bool = False
+            for i, j in enumerate(jamos):
+                if i > 0:
+                    one = Hangul.double_to_one.get(jamos[i-1:i+1], None)
+                    if one is not None:
+                        new_jamos.append(one)
+                        is_pushed = True
+                    elif not is_pushed:
+                        new_jamos.append(jamos[i - 1])
+                    else:
+                        is_pushed = False
+            jamos = ''.join(new_jamos)
+            assert len(jamos) == Hangul.JAMO_LEN_PER_SYLLABLE
+        elif jamos_len < Hangul.JAMO_LEN_PER_SYLLABLE:
+            jamos += "\x00" * (Hangul.JAMO_LEN_PER_SYLLABLE - jamos_len)
         if ord(jamos[0]) == 0 or ord(jamos[1]) == 0:
             return jamos[0] if ord(jamos[0]) != 0 else jamos[1]
         return chr(

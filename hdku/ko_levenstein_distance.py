@@ -680,16 +680,10 @@ class KoLevensteinDistance:
             for i in range(1, n + 1):
                 cost = 0 if sa[i -
                                1] == t_j else self.trans_cost(sa[i - 1], t_j)
-                # minimum of cell to the left+1, to the top+1, diagonally left
-                # and up +cost
                 d[i] = min(
                     min(d[i - 1] + self.insert_cost(t_j),
                         p[i] + self.delete_cost(t_j)), p[i - 1] + cost)
-            # copy current distance counts to 'previous row' distance counts
             _d = p
             p = d
             d = _d
-        # our last action in the above loop was to switch d and p, so p now
-        # actually has the most recent cost counts
-        # return 1.0f - ((float) p[n] / Math.max(other.length(), sa.length))
         return p[n]
