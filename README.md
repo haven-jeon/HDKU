@@ -20,7 +20,7 @@ kdd.get_distance("안녕하세요", "안녕하새요")
 ```
 
 All three sentences above mean `greetings`, but only '안녕하새요' contains a grammatical error.
-When calculated with HDKU, the probability of a typo between 'ㅔ <-> ㅐ' is higher than that of 'ㅔ <-> ㅕ', ​​and the distance is judged closer, which is very common sense.
+When calculated with HDKU, the probability of a typo between 'ㅔ <-> ㅐ' is higher than that of 'ㅔ <-> ㅕ', ​​and the distance is judged closer, which is common sense.
 
 `HDKU` provides the following features.
 
