@@ -12,8 +12,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-# You should have received a copy of the GNU General Public License
-# along with JHanNanum.  If not, see <http://www.gnu.org/licenses/>
+# see <http://www.gnu.org/licenses/>
 
 from typing import List
 from abc import ABCMeta, abstractmethod
