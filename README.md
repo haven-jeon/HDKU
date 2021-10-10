@@ -2,7 +2,7 @@
 
 Hangul Dubeolsik(QWERTY) Keystroke Utils
 
-The [Dubeolsik(QWERTY) keyboard](https://en.wikipedia.org/wiki/Keyboard_layout#Dubeolsik) is the most used Korean keyboard layout in mobile and desktop environments. When calculating the distance of a Hangul character string, the distance calculation considering the Jamo constituting the Korean syllable and the characteristics of the Hangul keyboard is an essential part to be considered in various applications (eg, typographical correction). 'HDKU' is a package that calculates the distance of Hangul words based on a Dubeolsik keyboard and Hangul phonetics with Hangul-related conversion tools.
+The [Dubeolsik(QWERTY) keyboard](https://en.wikipedia.org/wiki/Keyboard_layout#Dubeolsik) is the most used Korean keyboard layout in mobile and desktop environments. When calculating the distance of a Hangul character string, the distance calculation considering the Jamo constituting the Korean syllable and the characteristics of the Hangul keyboard is an essential part to be considered in various applications (eg, typographical correction). `HDKU` is a package that calculates the distance of Hangul string based on a Dubeolsik keyboard and Hangul phonetics with Hangul-related conversion tools.
 
 The distance is largely based on typo distance and Hangul phonetic distance as shown below. See [here](hdku/ko_levenstein_distance.py) for more details.
 
