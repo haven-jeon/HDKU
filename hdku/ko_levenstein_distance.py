@@ -680,9 +680,9 @@ class KoLevensteinDistance:
             for i in range(1, n + 1):
                 cost = 0 if sa[i -
                                1] == t_j else self.trans_cost(sa[i - 1], t_j)
-                d[i] = min(
-                    min(d[i - 1] + self.insert_cost(t_j),
-                        p[i] + self.delete_cost(t_j)), p[i - 1] + cost)
+                d[i] = min(d[i - 1] + self.insert_cost(t_j),
+                           p[i] + self.delete_cost(t_j),
+                           p[i - 1] + cost)
             _d = p
             p = d
             d = _d
